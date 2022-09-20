@@ -7,7 +7,8 @@ __pycache__/
 artifacts/
 artifacts/*
 mlflow.db
-
+mlruns/
+mlruns/*
 
 # C extensions
 *.so
