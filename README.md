@@ -7,8 +7,10 @@ This is a custom project, which aims to demonstrate an end-to-end machine learni
 - [Versions](#versions)
 - [Contact](#mailbox-contact)
 
-## Versions
+## Versions 
 
+- Version 2
+    - Deployment
 - Version 1
     - Add data
     - Model development
