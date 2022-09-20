@@ -4,9 +4,10 @@ __pycache__/
 *$py.class
 
 # MLFlow
-artifact/
-artifact/*
+artifacts/
+artifacts/*
 mlflow.db
+
 
 # C extensions
 *.so
@@ -132,3 +133,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Log files
+logs.log
