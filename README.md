@@ -1,6 +1,7 @@
 <p align="center">
-<img src=".\images\MLFlow.png" width = "300" alt="" align=left/>
+<img src=".\images\MLFlow.png" width = "300" alt="" align=left />
 </p>
+
 
 <br />
 <br />
@@ -9,7 +10,7 @@
 <br />
 <br />
 <br />
-<br />
+
 
 # MLFlow-project
 
