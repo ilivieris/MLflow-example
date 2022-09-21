@@ -1,6 +1,14 @@
 # MLFlow-project
 
-This is a custom project, which aims to demonstrate an end-to-end machine learning project using MLFlow, XGBoost, Docker & FastAPI
+This is a custom project, which aims to demonstrate an end-to-end machine learning project using MLFlow, XGBoost, Docker & FastAPI. The hyperparameter optimization is performed using Sequental Optimization.
+
+Additionally, the best model is locally deployed
+- using FastAPI & Docker
+- using MLFlow serving
+
+For creating the optimized prediction model run ```01. Model development.ipynb```
+
+**Notice:** That for tracking the experiments launch ```$ mlflow server --backend-store-uri sqlite:///mlflow.db --default-artifact-root ./artifacts --host 0.0.0.0 --port 5000```
 <br />
 <br />
 
@@ -8,7 +16,8 @@ This is a custom project, which aims to demonstrate an end-to-end machine learni
 ## Table of Contents
 
 - [Data](#data)
-- [How to run](#how-to-run)
+- [Deployment using FastAPI & Docker](#deployment-using-fastapi--docker)
+- [Deployment using MLFlow serving](#mlflow-serving-model)
 - [Versions](#versions)
 - [Contact](#mailbox-contact)
 <br />
@@ -25,7 +34,7 @@ The dataset is splited in train/test and contains spectral bands for the Sentine
 
 
 ---
-## How to run
+## Deployment using FastAPI & Docker
 
 For creating/training the prediction model, run
 '''
@@ -102,13 +111,43 @@ If you’ve successfully reached until here, you should have your image classifi
 <br />
 <br />
 
+---
+## MLFlow serving model
+
+1. Launch ```$ mlflow server --backend-store-uri sqlite:///mlflow.db --default-artifact-root ./artifacts --host 0.0.0.0 --port 5000```
+
+2. Got to http://0.0.0.0:5000
+
+3. Pick the best model, register with Model Registry as ```Irrigation_Model```
+
+4. Choose second best model and create version 2 in the Model Registry
+    - Transition the best model into Production
+    - Transition the second best model into Staging
+
+5. Open and run ```MLFlow serving model.ipynb```
+
+**Notice**
+- Set environment variable for the tracking URL where the Model Registry resides
+```
+export MLFLOW_TRACKING_URI=http://0.0.0.0:5000
+```
+
+- Serve the production model from the model registry
+```
+mlflow models serve -m "models:/Irrigation_model/Production" --no-conda --port 1983
+```
+<br />
+<br />
+
 
 
 ---
 ## Versions 
 
+- Version 2.1
+    - Model deployment using MLFlow serving
 - Version 2
-    - Deployment
+    - Deployment using FastAPI
 - Version 1
     - Add data
     - Model development
