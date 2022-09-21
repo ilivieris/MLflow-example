@@ -1,3 +1,16 @@
+<p align="center">
+<img src=".\images\MLFlow.png" width = "300" alt="" align=left/>
+</p>
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
 # MLFlow-project
 
 This is a custom project, which aims to demonstrate an end-to-end machine learning project using MLFlow, XGBoost, Docker & FastAPI. The hyperparameter optimization is performed using Sequental Optimization.
@@ -8,7 +21,7 @@ Additionally, the best model is locally deployed
 
 For creating the optimized prediction model run ```01. Model development.ipynb```
 
-**Notice:** That for tracking the experiments launch ```$ mlflow server --backend-store-uri sqlite:///mlflow.db --default-artifact-root ./artifacts --host 0.0.0.0 --port 5000```
+**Notice:** That for tracking the experiments launch ``$ mlflow server --backend-store-uri sqlite:///mlflow.db --default-artifact-root ./artifacts --host 0.0.0.0 --port 5000``
 <br />
 <br />
 
@@ -28,6 +41,13 @@ For creating the optimized prediction model run ```01. Model development.ipynb``
 ## Data
 
 The dataset is splited in train/test and contains spectral bands for the Sentinel-2.
+
+```
+Data
+|── Irrigation_train.csv
+└── Irrigation_test.csv
+```
+
 <br />
 <br />
 
