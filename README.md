@@ -82,13 +82,17 @@ To check your application
 
 If you’ve successfully reached until here, you should have your image classifier API up and running on http://0.0.0.0:8000/docs/ and should have a similar looking page!
 
-#### Main page
+<br />
+
+**Main page**
 
 <p align="center">
 <img src=".\images\image1.png" width = "800" alt="" align=center />
 </p>
 
-#### Use /predict
+<br />
+
+**Use predict**
 
 <p align="center">
 <img src=".\images\image2.png" width = "800" alt="" align=center />
