@@ -22,3 +22,14 @@ def init_logger(log_file = 'logs.log'):
     logger.addHandler(handler2)
     
     return logger
+
+
+# # Initiate logger
+# #
+# if VERBOSE:
+#     logger = init_logger( log_file = 'logs.log' ) 
+
+# if (VERBOSE):
+#     logger.info('Info message')
+#     logger.error('Error message')
+#     logger.warning('Warning message')
