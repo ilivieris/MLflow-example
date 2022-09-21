@@ -9,6 +9,8 @@ from   pydantic import BaseModel
 import mlflow
 #
 import pickle
+import pandas as pd
+
 
 app = FastAPI(title = 'Irrigation prediction model')
 
@@ -62,7 +64,9 @@ class Inputs( BaseModel ):
     NDBI_11:  float = None
     LSWI2_11: float = None   
 
-
+{
+  "detail": "[ERROR] training data did not have the following fields: B11_5, B12_5, B05_5, B06_5, NDVI_5, NDBI_5, LSWI2_5, B11_7, B12_7, B05_7, B06_7, NDVI_7, NDBI_7, LSWI2_7, B11_9, B12_9, B05_9, B06_9, NDVI_9, NDBI_9, LSWI2_9, B11_11, B12_11, B05_11, B06_11, NDVI_11, NDBI_11, LSWI2_11"
+}
 
 # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 # # Loading the trained model
@@ -106,41 +110,50 @@ async def get_model_response(data: Inputs):
     '''
     Returns models prediction on input data
     '''
+    print( type(data) )
+    print( data )
+
     # Get inputs
     #
-    Instance = []
-    Instance.append( data.dict()['B11_5']   )
-    Instance.append( data.dict()['B12_5']   ) 
-    Instance.append( data.dict()['B05_5']   )
-    Instance.append( data.dict()['B06_5']   )
-    Instance.append( data.dict()['NDVI_5']  )
-    Instance.append( data.dict()['NDBI_5']  )
-    Instance.append( data.dict()['LSWI2_5'] )
-    #
-    Instance.append( data.dict()['B11_7']   )
-    Instance.append( data.dict()['B12_7']   ) 
-    Instance.append( data.dict()['B05_7']   )
-    Instance.append( data.dict()['B06_7']   )
-    Instance.append( data.dict()['NDVI_7']  )
-    Instance.append( data.dict()['NDBI_7']  )
-    Instance.append( data.dict()['LSWI2_7'] )    
-    #
-    Instance.append( data.dict()['B11_9']   )
-    Instance.append( data.dict()['B12_9']   ) 
-    Instance.append( data.dict()['B05_9']   )
-    Instance.append( data.dict()['B06_9']   )
-    Instance.append( data.dict()['NDVI_9']  )
-    Instance.append( data.dict()['NDBI_9']  )
-    Instance.append( data.dict()['LSWI2_9'] )    
-    #
-    Instance.append( data.dict()['B11_11']   )
-    Instance.append( data.dict()['B12_11']   ) 
-    Instance.append( data.dict()['B05_11']   )
-    Instance.append( data.dict()['B06_11']   )
-    Instance.append( data.dict()['NDVI_11']  )
-    Instance.append( data.dict()['NDBI_11']  )
-    Instance.append( data.dict()['LSWI2_11'] )    
-    
+    try:
+        Instance = {}
+        #
+        Instance['B11_5']    = [ data.dict()['B11_5']   ]
+        Instance['B12_5']    = [ data.dict()['B12_5']   ]
+        Instance['B05_5']    = [ data.dict()['B05_5']   ]
+        Instance['B06_5']    = [ data.dict()['B06_5']   ]
+        Instance['NDVI_5']   = [ data.dict()['NDVI_5']  ]
+        Instance['NDBI_5']   = [ data.dict()['NDBI_5']  ]
+        Instance['LSWI2_5']  = [ data.dict()['LSWI2_5'] ]
+         #
+        Instance['B11_7']    = [ data.dict()['B11_7']   ]
+        Instance['B12_7']    = [ data.dict()['B12_7']   ]
+        Instance['B05_7']    = [ data.dict()['B05_7']   ]
+        Instance['B06_7']    = [ data.dict()['B06_7']   ]
+        Instance['NDVI_7']   = [ data.dict()['NDVI_7']  ]
+        Instance['NDBI_7']   = [ data.dict()['NDBI_7']  ]
+        Instance['LSWI2_7']  = [ data.dict()['LSWI2_7'] ]
+        #
+        Instance['B11_9']    = [ data.dict()['B11_9']   ]
+        Instance['B12_9']    = [ data.dict()['B12_9']   ]
+        Instance['B05_9']    = [ data.dict()['B05_9']   ]
+        Instance['B06_9']    = [ data.dict()['B06_9']   ]
+        Instance['NDVI_9']   = [ data.dict()['NDVI_9']  ]
+        Instance['NDBI_9']   = [ data.dict()['NDBI_9']  ]
+        Instance['LSWI2_9']  = [ data.dict()['LSWI2_9'] ]
+        #
+        Instance['B11_11']    = [ data.dict()['B11_11']   ]
+        Instance['B12_11']    = [ data.dict()['B12_11']   ]
+        Instance['B05_11']    = [ data.dict()['B05_11']   ]
+        Instance['B06_11']    = [ data.dict()['B06_11']   ]
+        Instance['NDVI_11']   = [ data.dict()['NDVI_11']  ]
+        Instance['NDBI_11']   = [ data.dict()['NDBI_11']  ]
+        Instance['LSWI2_11']  = [ data.dict()['LSWI2_11'] ]
+    except Exception as e:
+        raise HTTPException(
+            status_code = 404, detail = '[ERROR] ' + str(e).split('] ')[-1].strip()
+        )  
+
     # Load model
     #
     try:
@@ -153,7 +166,7 @@ async def get_model_response(data: Inputs):
     # Load model
     #
     try:
-        pred = model.predict( [Instance] ).tolist()[0]
+        pred = model.predict( pd.DataFrame(Instance) )[0]
     except Exception as e:
         raise HTTPException(
             status_code = 404, detail = '[ERROR] ' + str(e).split('] ')[-1].strip()
