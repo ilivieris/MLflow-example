@@ -1,18 +1,14 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
+utils/__pycache__/
 *.py[cod]
 *$py.class
 
-# MLFlow
-artifacts/
-artifacts/*
-mlflow.db
-mlruns/
-mlruns/*
+checkpoints/
+checkpoints/*
 
-# Optimized model/hyperparameters
-checkpoint/
-checkpoint/*
+Data/
+Data/*
 
 # C extensions
 *.so
@@ -138,6 +134,3 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-
-# Log files
-logs.log
