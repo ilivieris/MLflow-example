@@ -7,9 +7,6 @@ utils/__pycache__/
 checkpoints/
 checkpoints/*
 
-Data/
-Data/*
-
 # C extensions
 *.so
 
